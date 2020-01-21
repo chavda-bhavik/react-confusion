@@ -17,27 +17,31 @@ const DishDetails = (props) => {
         let comments = null
         if(props.dish.comments) {
             comments = props.dish.comments.map( (comment) => (
-                <li>
+                <li key={comment.id}>
                     <p>{comment.comment}</p>
-                    <p>-- {comment.author}, {comment.date} </p>
+                    <p>-- {comment.author}, { new Intl.DateTimeFormat('en-US',{ year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(comment.date))) } </p>
                 </li>
             ))
         }
         return comments
     }
-    return (
-        <div className="row">
-            <div className="col-12 col-md-5 m-1">
-                { renderDish() }
+    if(props.dish) {
+        return (
+            <div className="row">
+                <div className="col-12 col-md-5 m-1">
+                    { renderDish() }
+                </div>
+                <div className="col-12 col-md-5 m-1 text-left">
+                    <h4>Comments</h4>
+                    <ul className="list-unstyled">
+                        { renderComments() }
+                    </ul>
+                </div>
             </div>
-            <div className="col-12 col-md-5 m-1 text-left">
-                <h4>Comments</h4>
-                <ul className="list-unstyled">
-                    { renderComments() }
-                </ul>
-            </div>
-        </div>
-    )
+        )
+    } else {
+        return <div></div>
+    }
 }
 
 export default DishDetails
