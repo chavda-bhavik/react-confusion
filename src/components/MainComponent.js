@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-
-import { Navbar, NavbarBrand } from 'reactstrap'
 import { DISHES } from './../shared/dishes'
 import DishDetails from './DishDetailsComponent'
 import Menu from './MenuComponent'
+import Header from './HeaderComponent'
+import Footer from './FooterComponent'
 
 class Main extends Component {
     state = {
@@ -16,11 +16,7 @@ class Main extends Component {
     render() {
         return (
         <div className="App">
-            <Navbar dark color="primary">
-            <div className="container">
-                <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-            </div>
-            </Navbar>
+            <Header />
             <div className="container">
                 <Menu 
                     dishes={this.state.dishes}
@@ -28,6 +24,7 @@ class Main extends Component {
                 />
                 <DishDetails dish={this.state.selectedDish} />
             </div>
+            <Footer />
         </div>
         );
     }
