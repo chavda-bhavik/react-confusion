@@ -1,5 +1,6 @@
 import React from 'react'
-import { Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 const DishDetails = (props) => {
     const renderDish = () => {
@@ -15,8 +16,8 @@ const DishDetails = (props) => {
     }
     const renderComments = () => {
         let comments = null
-        if(props.dish.comments) {
-            comments = props.dish.comments.map( (comment) => (
+        if(props.comments) {
+            comments = props.comments.map( (comment) => (
                 <li key={comment.id}>
                     <p>{comment.comment}</p>
                     <p>-- {comment.author}, { new Intl.DateTimeFormat('en-US',{ year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(comment.date))) } </p>
@@ -27,15 +28,28 @@ const DishDetails = (props) => {
     }
     if(props.dish) {
         return (
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    { renderDish() }
+            <div className="container">
+                <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/home" >Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to="/menu" >Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
                 </div>
-                <div className="col-12 col-md-5 m-1 text-left">
-                    <h4>Comments</h4>
-                    <ul className="list-unstyled">
-                        { renderComments() }
-                    </ul>
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        { renderDish() }
+                    </div>
+                    <div className="col-12 col-md-5 m-1 text-left">
+                        <h4>Comments</h4>
+                        <ul className="list-unstyled">
+                            { renderComments() }
+                        </ul>
+                    </div>
                 </div>
             </div>
         )

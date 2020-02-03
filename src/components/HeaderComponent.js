@@ -19,21 +19,21 @@ class header extends Component {
                     <div className="container">
                         <NavbarToggler onClick={() => this.toggleNav()} />
                         <NavbarBrand className="mr-auto" href="/">
-                            <img src="assets/images/logo.png" height="30" width="41" alt="Ristorante Con Fusion" />
+                            <img src="public/assets/images/logo.png" height="30" width="41" alt="Ristorante Con Fusion" />
                         </NavbarBrand>
                         <Collapse navbar isOpen={this.state.isOpen} >
                             <Nav navbar>
                                 <NavItem>
-                                    <Link class="nav-link" exact to="/home"><span className="fa fa-home fa-lg"></span>Home</Link>
+                                    <Link className="nav-link" exact="true" to="/home"><span className="fa fa-home fa-lg"></span>Home</Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Link class="nav-link" exact to="/aboutus"><span className="fa fa-info fa-lg"></span>About Us</Link>
+                                    <Link className="nav-link" exact="true" to="/aboutus"><span className="fa fa-info fa-lg"></span>About Us</Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Link class="nav-link" exact to="/menu"><span className="fa fa-list fa-lg"></span>Menu</Link>
+                                    <Link className="nav-link" exact="true" to="/menu"><span className="fa fa-list fa-lg"></span>Menu</Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Link class="nav-link" exact to="/contactus"><span className="fa fa-address-card fa-lg"></span>Contact Us</Link>
+                                    <Link className="nav-link" exact="true" to="/contactus"><span className="fa fa-address-card fa-lg"></span>Contact Us</Link>
                                 </NavItem>
                             </Nav>
                         </Collapse>
