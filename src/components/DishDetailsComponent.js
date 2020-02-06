@@ -1,5 +1,5 @@
 import React from 'react'
-import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardBody, CardText, CardTitle, Button } from 'reactstrap'
 import { Link } from 'react-router-dom'
 
 const DishDetails = (props) => {
@@ -49,6 +49,9 @@ const DishDetails = (props) => {
                         <ul className="list-unstyled">
                             { renderComments() }
                         </ul>
+                        <Button outline onClick={props.toggleCommentModal}>
+                            <span class="fa fa-pencil fa-lg"></span> {' '} Submit Comment
+                        </Button>
                     </div>
                 </div>
             </div>

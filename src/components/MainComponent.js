@@ -21,7 +21,12 @@ const mapStateToProps = state => {
 
 class Main extends Component {
     state = {
-        selectedDish: null
+        showCommentDialog: false
+    }
+    toggleCommentDialog = () => {
+        this.setState( (state,props) => {
+            return { showCommentDialog: !state.showCommentDialog }
+        })
     }
     render() {
         const dishWithId = ({match}) => {
@@ -29,8 +34,8 @@ class Main extends Component {
                 <DishDetail 
                     dish={this.props.dishes.filter( dish => dish.id === parseInt(match.params.dishId,10))[0]} 
                     comments={this.props.comments.filter( comment => comment.dishId === parseInt(match.params.dishId, 10))}
+                    toggleCommentModal = {this.toggleCommentDialog}
                 />
-
             )
         }
         const HomePage = () => {
@@ -45,7 +50,10 @@ class Main extends Component {
         }
         return (
         <div className="App">
-            <Header />
+            <Header 
+                showCommentDialog={this.state.showCommentDialog} 
+                toggleCommentModal={this.toggleCommentDialog}
+            />
                 <Switch>
                     <Route path="/aboutus" render={AboutUS} />
                     <Route path="/home" component={HomePage} />
