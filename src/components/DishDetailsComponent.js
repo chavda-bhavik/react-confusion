@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardBody, CardText, CardTitl
 import { Link } from 'react-router-dom'
 import { Row, Col,  Modal, ModalHeader, ModalBody, Label } from 'reactstrap'
 import { Control, LocalForm, Errors } from "react-redux-form";
+import Loading from './LoadingComponent'
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -48,7 +49,24 @@ class DishDetails extends React.Component {
         // console.log("Comment values are:" + JSON.stringify(values));
     }
     render() {
-        if(this.props.dish) {
+        if(this.props.isLoading) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Loading/>
+                    </div>
+                </div>
+            )
+        } else if(this.props.errMess) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.errMess}</h4>
+                    </div>
+                </div>
+            )            
+        }
+        else if(this.props.dish) {
             return (
                 <div className="container">
                     <div className="row">
