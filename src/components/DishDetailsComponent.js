@@ -41,8 +41,11 @@ class DishDetails extends React.Component {
         } )
     }
     handleCommentSubmit = (values) => {
-        alert("Comment values are:" + JSON.stringify(values));
-        console.log("Comment values are:" + JSON.stringify(values));
+        console.log(values);
+        console.log(this.props.dishId, values.rating, values.name, values.comment);
+        this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
+        // alert("Comment values are:" + JSON.stringify(values));
+        // console.log("Comment values are:" + JSON.stringify(values));
     }
     render() {
         if(this.props.dish) {
@@ -69,7 +72,7 @@ class DishDetails extends React.Component {
                                 { this.renderComments() }
                             </ul>
                             <Button outline onClick={this.toggleModal}>
-                                <span class="fa fa-pencil fa-lg"></span> {' '} Submit Comment
+                                <span className="fa fa-pencil fa-lg"></span> {' '} Submit Comment
                             </Button>
                         </div>
                     </div>
