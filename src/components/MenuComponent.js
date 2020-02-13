@@ -2,13 +2,14 @@ import React from 'react'
 import { Card, CardImgOverlay, CardImg, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import Loading from './LoadingComponent'
+import { baseURL } from "../shared/baseURL";
 
 const Menu = (props) => {
     const menu = props.dishes.dishes.map( 
         dish => <div className="col-12 m-1 col-md-5" key={dish.id} >
                     <Card>
                         <Link to={`/menu/${dish.id}`} >
-                            <CardImg src={dish.image} alt={dish.name} width="100%" />
+                            <CardImg src={ baseURL + dish.image} alt={dish.name} width="100%" />
                             <CardImgOverlay>
                                 <CardTitle>{dish.name}</CardTitle>
                             </CardImgOverlay>

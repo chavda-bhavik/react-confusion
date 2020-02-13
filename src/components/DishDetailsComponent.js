@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col,  Modal, ModalHeader, ModalBody, Label } from 'reactstrap'
 import { Control, LocalForm, Errors } from "react-redux-form";
 import Loading from './LoadingComponent'
+import { baseURL } from "../shared/baseURL";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -16,7 +17,7 @@ class DishDetails extends React.Component {
     renderDish = () => {
         return (
             <Card>
-                <CardImg src={this.props.dish.image} alt={this.props.dish.name} width="100%" />
+                <CardImg src={baseURL + this.props.dish.image} alt={this.props.dish.name} width="100%" />
                 <CardBody>
                     <CardTitle>{this.props.dish.name}</CardTitle>
                     <CardText>{this.props.dish.description}</CardText>
