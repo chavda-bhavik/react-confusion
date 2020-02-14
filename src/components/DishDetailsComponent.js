@@ -5,6 +5,7 @@ import { Row, Col,  Modal, ModalHeader, ModalBody, Label } from 'reactstrap'
 import { Control, LocalForm, Errors } from "react-redux-form";
 import Loading from './LoadingComponent'
 import { baseURL } from "../shared/baseURL";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -16,23 +17,27 @@ class DishDetails extends React.Component {
     }
     renderDish = () => {
         return (
-            <Card>
-                <CardImg src={baseURL + this.props.dish.image} alt={this.props.dish.name} width="100%" />
-                <CardBody>
-                    <CardTitle>{this.props.dish.name}</CardTitle>
-                    <CardText>{this.props.dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform in transformProps={{ exitTransform:'scale(0.5) translateY(-50)' }}>
+                <Card>
+                    <CardImg src={baseURL + this.props.dish.image} alt={this.props.dish.name} width="100%" />
+                    <CardBody>
+                        <CardTitle>{this.props.dish.name}</CardTitle>
+                        <CardText>{this.props.dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         )
     }
     renderComments = () => {
         let comments = null
         if(this.props.comments) {
             comments = this.props.comments.map( (comment) => (
-                <li key={comment.id}>
-                    <p>{comment.comment}</p>
-                    <p>-- {comment.author}, { new Intl.DateTimeFormat('en-US',{ year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(comment.date))) } </p>
-                </li>
+                <Fade in>
+                    <li key={comment.id}>
+                        <p>{comment.comment}</p>
+                        <p>-- {comment.author}, { new Intl.DateTimeFormat('en-US',{ year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(comment.date))) } </p>
+                    </li>
+                </Fade>
             ))
         }
         return comments
@@ -88,7 +93,9 @@ class DishDetails extends React.Component {
                         <div className="col-12 col-md-5 m-1 text-left">
                             <h4>Comments</h4>
                             <ul className="list-unstyled">
-                                { this.renderComments() }
+                                <Stagger in>
+                                    { this.renderComments() }
+                                </Stagger>
                             </ul>
                             <Button outline onClick={this.toggleModal}>
                                 <span className="fa fa-pencil fa-lg"></span> {' '} Submit Comment
