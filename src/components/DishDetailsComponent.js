@@ -45,7 +45,7 @@ class DishDetails extends React.Component {
     handleCommentSubmit = (values) => {
         console.log(values);
         console.log(this.props.dishId, values.rating, values.name, values.comment);
-        this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.name, values.comment);
         // alert("Comment values are:" + JSON.stringify(values));
         // console.log("Comment values are:" + JSON.stringify(values));
     }

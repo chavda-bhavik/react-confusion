@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input  } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import { baseURL } from "./../shared/baseURL";
 
 class header extends Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class header extends Component {
                     <div className="container">
                         <NavbarToggler onClick={() => this.toggleNav()} />
                         <NavbarBrand className="mr-auto" href="/">
-                            <img src="public/assets/images/logo.png" height="30" width="41" alt="Ristorante Con Fusion" />
+                            <img src={baseURL + "images/logo.png"} height="30" width="41" alt="Ristorante Con Fusion" />
                         </NavbarBrand>
                         <Collapse navbar isOpen={this.state.isOpen} >
                             <Nav navbar>

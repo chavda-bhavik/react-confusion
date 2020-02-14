@@ -9,11 +9,10 @@ import Footer from './FooterComponent'
 import Home from './HomeComponent'
 import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { addComment, fetchDishes, fetchComments, fetchPromos } from "./../redux/ActionCreaters";
+import { postComment, fetchDishes, fetchComments, fetchPromos } from "./../redux/ActionCreaters";
 import { actions } from 'react-redux-form'
 
 const mapStateToProps = state => {
-    console.log(state.promotions);
     return {
         dishes: state.dishes,
         comments: state.comments,
@@ -22,7 +21,7 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = (dispatch) => ({
-    addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
     fechDishes: () => {dispatch(fetchDishes())},    
     fechPromos: () => {dispatch(fetchPromos())},
     fechComments: () => {dispatch(fetchComments())},
@@ -37,15 +36,16 @@ class Main extends Component {
     }
     render() {
         const dishWithId = ({match}) => {
+            let id = match.params.dishId
             return (
                 <DishDetail 
                     dish={this.props.dishes.dishes.filter( dish => dish.id === parseInt(match.params.dishId,10))[0]} 
                     isLoading={this.props.dishes.isLoading}
                     errMess={this.props.dishes.errMess}
-                    comments={this.props.comments.comments.filter( comment => comment.dishId === parseInt(match.params.dishId, 10))}
+                    comments={this.props.comments.comments.filter( comment => comment.dishId === parseInt(match.params.dishId))}
                     commentsErrMess={this.props.comments.errMess}
                     dishId={match.params.dishId}
-                    addComment={this.props.addComment}
+                    postComment={this.props.postComment}
                 />
             )
         }
