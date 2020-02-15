@@ -9,7 +9,7 @@ import Footer from './FooterComponent'
 import Home from './HomeComponent'
 import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { postComment, fetchDishes, fetchComments, fetchPromos } from "./../redux/ActionCreaters";
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from "./../redux/ActionCreaters";
 import { actions } from 'react-redux-form'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
@@ -18,7 +18,7 @@ const mapStateToProps = state => {
         dishes: state.dishes,
         comments: state.comments,
         promotions: state.promotions,
-        leaders: state.leaders
+        leaders: state.leaders,
     }
 }
 const mapDispatchToProps = (dispatch) => ({
@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
     fechDishes: () => {dispatch(fetchDishes())},    
     fechPromos: () => {dispatch(fetchPromos())},
     fechComments: () => {dispatch(fetchComments())},
+    fetchLeaders: () => {dispatch(fetchLeaders())},
     resetFeedbackForm: () => { dispatch( actions.reset('feedback') )}
 })
 
@@ -34,10 +35,10 @@ class Main extends Component {
         this.props.fechDishes();
         this.props.fechComments();
         this.props.fechPromos();
+        this.props.fetchLeaders();
     }
     render() {
         const dishWithId = ({match}) => {
-            let id = match.params.dishId
             return (
                 <DishDetail 
                     dish={this.props.dishes.dishes.filter( dish => dish.id === parseInt(match.params.dishId,10))[0]} 
@@ -59,17 +60,19 @@ class Main extends Component {
                 promotion={this.props.promotions.promotions} 
                 promosLoading={this.props.promotions.isLoading}
                 promosErrMess={this.props.promotions.errMess}                
-                leader={this.props.leaders.filter( leader => leader.featured===true)[0]} 
+                leader={this.props.leaders.leaders[0]}
+                leadersLoading={this.props.leaders.isLoading}
+                leadersErrMess={this.props.leaders.error}
             />
         }
         const AboutUS = () => {
-            return <About leaders={this.props.leaders} />
+            return <About leaders={this.props.leaders.leaders} />
         }
         return (
         <div className="App">
             <Header />
                 <TransitionGroup>
-                    <CSSTransition key={this.props.location.key} classNames="page">
+                    <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>
                             <Route path="/aboutus" render={AboutUS} />
                             <Route path="/home" component={HomePage} />

@@ -1,6 +1,71 @@
 import * as ActionTypes from './ActionTypes'
 //import { DISHES } from './../shared/dishes'
 import { baseURL } from './../shared/baseURL'
+//import { actionTypes } from 'react-redux-form';
+
+// export const addFeedback = (feedback) => ({
+//     type: ActionTypes.ADD_FEEDBACK,
+//     payload: feedback
+// })
+// export const postFeedback = (values) => (dispatch) => {
+//     const newFeedback = {
+//         ...values
+//     }
+//     newFeedback.date = new Date().toISOString();
+//     return fetch(baseURL + 'feedback', {
+//             method: 'POST',
+//             body: JSON.stringify(newFeedback),
+//             headers: {
+//                 'Content-Type':'application/json'
+//             },
+//             credentials: 'same-origin'
+//         })
+//         .then(response => {
+//             if(response.ok) {
+//                 return response
+//             } else {
+//                 var error = new Error('Error '+response.status+':'+response.statusText)
+//                 error.response = response;
+//                 throw error
+//             }
+//         }, error => {
+//             var err = new Error(error.message);
+//             throw err
+//         })
+//         .then(response => response.json())
+//         .then(data => dispatch(addFeedback(data)))
+//         .catch(error => { console.log('Post feedback', error.message) })        
+// }
+
+export const postFeedback = (values) =>  {
+    const newFeedback = {
+        ...values
+    }
+    newFeedback.date = new Date().toISOString();
+    return fetch(baseURL + 'feedback', {
+            method: 'POST',
+            body: JSON.stringify(newFeedback),
+            headers: {
+                'Content-Type':'application/json'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if(response.ok) {
+                return response
+            } else {
+                var error = new Error('Error '+response.status+':'+response.statusText)
+                error.response = response;
+                throw error
+            }
+        }, error => {
+            var err = new Error(error.message);
+            throw err
+        })
+        .then(response => response.json())
+        .then(data => JSON.stringify(data))
+        .catch(error => error.message )
+}
 
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -127,3 +192,34 @@ export const addPromos = (promos) => ({
     type: ActionTypes.ADD_PROMOS,
     payload: promos
 });
+
+export const fetchLeaders = () => (dispatch) => {
+    console.log("asdf")
+    dispatch(leadersLoading())
+    return fetch(baseURL + 'leaders')
+        .then(response => {
+            if(response.ok) return response
+            else {
+                var error = new Error('Error '+response.status+':'+response.statusText)
+                error.response = response;
+                throw error
+            }
+        }, error => {
+            var err = new Error(error.message);
+            throw err
+        })
+        .then(response => response.json())
+        .then(leaders => dispatch(addLeaders(leaders)))
+        .catch(error => dispatch(leadersFailed(error.message)))
+}
+export const leadersLoading = () => ({
+    type: ActionTypes.LEADERS_LOADING
+})
+export const leadersFailed = (errmess) => ({
+    type: ActionTypes.LEADERS_FAILED,
+    payload: errmess
+})
+export const addLeaders = (leaders) => ({
+    type: ActionTypes.ADD_LEADERS,
+    payload: leaders
+})

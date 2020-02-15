@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap'
 import { Link } from 'react-router-dom' 
 import { Control, Form, Errors } from "react-redux-form";
+import { postFeedback } from './../redux/ActionCreaters'
+import { connect } from 'react-redux'
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -11,8 +13,7 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
 
 class Contact extends Component {
     handleSubmit(values) {
-        console.log("Current state is:" + JSON.stringify(values));
-        this.props.resetFeedbackForm();
+        postFeedback(values).then(data => alert(data))
     }
     render() {
         return(
@@ -212,5 +213,9 @@ class Contact extends Component {
         )
     }
 }
-
-export default Contact;
+const mapDispatchToProps = dispatch => {
+    return {
+        postFeedback: (values) => postFeedback(values)
+    }
+}
+export default connect(null,mapDispatchToProps)(Contact);

@@ -2,46 +2,23 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import alberto from './../assets/images/alberto.png'
+import { Fade, Stagger } from "react-animation-components";
 
 function RenderLeaders({leader}) {
 
     return (
-        <Media style={{ paddingBottom: "30px" }}>
-        <Media left style={{ paddingLeft: "30px", paddingRight: "30px" }}>
-          <img src={alberto} alt={leader.name} />
-        </Media>
-        <Media body>
-          <Media heading>{leader.name}</Media>
-          <p>{leader.designation} </p>
-          {leader.description}
-        </Media>
-      </Media>
-        /*<Media class="m-4">
-        <Media left top href="#" className="m-3">
-          <img src={alberto} alt="alberto" />
-        </Media>
-        <Media body className="text-left">
-          <Media heading>
-            {leader.name}
-          </Media>
-          <Media className="blockquote-footer">
-            {leader.designation}
-          </Media>
-          {leader.description}
-        </Media>
-      </Media>        
-        <Media key={leader.id}>
-        <Media object data-src={'./../assets/images/alberto.png'} alt="Generic placeholder image" />
-            <Media left key="10">
-                <Media object data-src={leader.image} alt={leader.name} />
-            </Media>
-            <Media body key="20">
-                <Media heading>
-                    {leader.name}
+        <Fade in>
+            <Media style={{ paddingBottom: "30px" }}>
+                <Media left style={{ paddingLeft: "30px", paddingRight: "30px" }}>
+                    <img src={alberto} alt={leader.name} />
                 </Media>
-                {leader.description}
+                <Media body>
+                    <Media heading>{leader.name}</Media>
+                    <p>{leader.designation} </p>
+                    {leader.description}
+                </Media>
             </Media>
-        </Media> */
+      </Fade>
     )
 }
 
@@ -109,7 +86,9 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <Stagger in>
+                            {leaders}
+                        </Stagger>
                     </Media>
                 </div>
             </div>
